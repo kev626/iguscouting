@@ -29,7 +29,7 @@ if (isset($_POST['autoparticlegoal'])) {
 	$abilities.="{$_POST['autoparticlegoal']} particles in center vortex, ";
 }
 if (isset($_POST['autocap'])) {
-	if ($_POST['autocap']) {
+	if ($_POST['autocap'] == 5) {
 		$teamscore+=5;
 		$abilities.="Cap ball touches the floor, ";
 	}
@@ -73,5 +73,5 @@ VALUES (
 );
 ") or die(mysqli_error($connection));
 
-header('Location: /cron.php');
+include "../cron.php";
 ?>

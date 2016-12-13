@@ -55,6 +55,9 @@ li a:hover {
 .active {
 	background-color: #4CAF50;
 }
+td {
+    vertical-align: middle !important;
+}
 </style>
 
 <ul>
@@ -145,7 +148,7 @@ if (mysqli_num_rows($raw) > 0) {
 			if ($row['starred'] == 0) {	
 				echo "<tr><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td><a href='/star.php?number=" . $row['number'] . "'><img src='star.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
 			} else {
-				echo "<tr class='success'><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td><a href='/star.php?number=" . $row['number'] . "&view='><img src='unstar.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
+				echo "<tr class='danger'><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td><a href='/star.php?number=" . $row['number'] . "&view='><img src='unstar.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
 			}
 		}
 		$recordedTeams++;
@@ -181,7 +184,12 @@ $averageScore = $totalScore/$recordedTeams;
 			<h1>Graphs &amp; Stats</h1>
 			<h3>Total Teams: <?php echo $totalTeams; ?></h3>
 			<h3>Surveyed Teams: <?php echo $recordedTeams; ?></h3>
-			<h3>Percentage Complete: <?php echo round($recordedTeams/$totalTeams*100, 0.0) . "%"; ?></h3>
+			<div class="progress" style="width:50%">
+				<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="<?php echo round($recordedTeams/$totalTeams*100, 0.0); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo round($recordedTeams/$totalTeams*100, 0.0) . "%"; ?>">
+					
+				<span class="progress-completed"><?php echo round($recordedTeams/$totalTeams*100, 0.0) . "%"; ?> completed</span>
+				</div>
+			</div>
 			<h3>Best Score: <?php echo $largestScore; ?></h3>
 			<h3>Worst Score: <?php echo $smallestScore; ?></h3>
 			<h3>Average Score: <?php echo round($averageScore, 0.0); ?></h3>

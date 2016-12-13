@@ -10,6 +10,7 @@ $number = mysqli_real_escape_string($connection, $_GET['id']);
 
 ?>
 <link rel="stylesheet" href="../css/bootstrap.min.css">
+<meta name=viewport content="width=device-width, initial-scale=1, user-scalable=0">
 
 <style>
 #red {
@@ -108,13 +109,25 @@ li a:hover {
 	
 	echo "<center><h1>Information for team $name ($number)</h1></center>";
 	
-	echo "<h2>Predicted: $score</h2>";
-	echo "<h2>Historical: $historical</h2><br/>";
+	echo "<h4>Predicted: $score</h2>";
+	echo "<h4>Historical: $historical</h2><br/>";
+	
+	echo "<h3>Abilities</h3><br/>";
+	echo "{$row['abilities']}<br/><br/>";
 	
 	echo "<table border=1><tr><td><b>Match #</b></td><td><b><center>Red Teams</center></b></td><td><b><center>Blue Teams</center></b></td><td><center><b>Score</b></center></td><td><center><b>Comments</b></center></td></tr>\n";
 	echo $tabledata;
-	echo "</table>";
+	echo "</table><br/><br/>";
 	
-	//needs to show: matches they were in/ results
+	$comments = $row['comments'];
+	if ($comments == "") {
+		$comments = "Enter your comments here.";
+	}
 	//capabilities!
 ?>
+
+<form action="updateComments.php" method=POST>
+<textarea name="comments" rows=10 cols=50><?php echo $comments; ?></textarea><br/>
+<input type=hidden name="number" value="<?php echo $number; ?>"/>
+<input type=submit value="Update"/>
+</form>
