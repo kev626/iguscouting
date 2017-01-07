@@ -190,8 +190,8 @@ $averageScore = $totalScore/$recordedTeams;
 				<span class="progress-completed"><?php echo round($recordedTeams/$totalTeams*100, 0.0) . "%"; ?> completed</span>
 				</div>
 			</div>
-			<h3>Best Score: <?php echo $largestScore; ?></h3>
-			<h3>Worst Score: <?php echo $smallestScore; ?></h3>
+			<h3>Highest Score: <?php echo $largestScore; ?></h3>
+			<h3>Lowest Score: <?php echo $smallestScore; ?></h3>
 			<h3>Average Score: <?php echo round($averageScore, 0.0); ?></h3>
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 			<script type="text/javascript">
