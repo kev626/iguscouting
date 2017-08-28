@@ -50,7 +50,7 @@ li a:hover {
 <form action='updateTeams.php' method=POST>
 <h1>Igutech Scouting Sheet</h1>
 
-Team Number: <input type=text name='number'/><br/>
+Team Number: <input type=tel name='number'/><br/>
 Team Name:   <input type=text name='teamName'/><br/>
 <h3>Autonomous</h3>
 Amount of beacons: <input type='text' name='autobeacons'/><br/>
