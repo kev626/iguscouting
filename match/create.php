@@ -16,8 +16,10 @@ $comments = mysqli_real_escape_string($connection, $_POST['comments']);
 
 if ($blueScore > $redScore) {
 	$winner = 'blue';
-} else {
+} else if ($blueScore < $redScore) {
 	$winner = 'red';
+} else {
+	$winner = 'tie';
 }
 $query = "
 INSERT INTO `matches` (

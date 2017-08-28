@@ -44,8 +44,14 @@ li a:hover {
 </ul>
 <br/>
 
+<form action='import.php' METHOD=POST>
+Looking to import from the <a href='http://scoring.ftcpenn.org/'>FTCPenn scoring system</a>?<br/>
+<input type=url name='url' placeholder='URL to HTML match results page' style="width: 100%"/><br/>
+<input type=submit value='Import'/><br/>
+</form>
+
 <form action='create.php' METHOD=POST>
-<input type=text name='match' placeholder='match #'/><br/>
+<input type=text name='match' placeholder='match #' autofocus/><br/>
 <input type=text name='red1' id='red'/><br/>
 <input type=text name='red2' id='red'/><br/>
 <input type=text name='blue1' id='blue'/><br/>

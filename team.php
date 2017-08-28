@@ -82,8 +82,20 @@ li a:hover {
 			$comments = $histrow['comments'];
 			if ($winner == 'red') {
 				$tabledata .= "<tr bgcolor='FF0000' style='color: #FFFFFF;'>";
-			} else {
+			} else if ($winner == 'blue') {
 				$tabledata .= "<tr bgcolor='0000FF' style='color: #FFFFFF;'>";
+			} else {
+				$tabledata .= "<tr bgcolor='CCCCCC' style='color: #000000;'>";
+			}
+
+			if ($red2 == $number) {
+				$red2 = "<b>$red2</b>";
+			} else if ($red1 == $number) {
+				$red1 = "<b>$red1</b>";
+			} else if ($blue1 == $number) {
+				$blue1 = "<b>$blue1</b>";
+			} else if ($blue2 == $number) {
+				$blue2 = "<b>$blue2</b>";
 			}
 			$tabledata .= "<td><center>$match</center></td><td>$red1<br/>$red2</td><td>$blue1<br/>$blue2</td><td>$redscore-$bluescore</td><td>$comments</td></tr>";
 

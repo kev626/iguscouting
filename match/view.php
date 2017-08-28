@@ -1,4 +1,5 @@
 <meta name=viewport content="width=device-width initial-scale=1.0"/>
+<meta http-equiv="refresh" content="30" />
 <link rel="stylesheet" href="../css/bootstrap.min.css">
 
 <style>
@@ -58,8 +59,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 	$comments = $row['comments'];
 	if ($winner == 'red') {
 		echo "<tr bgcolor='FF0000' style='color: #FFFFFF;'>";
-	} else {
+	} else if ($winner == 'blue') {
 		echo "<tr bgcolor='0000FF' style='color: #FFFFFF;'>";
+	} else {
+		echo "<tr bgcolor='CCCCCC' style='color: #000000;'>";
 	}
 	echo "<td><center>$match</center></td><td>$red1<br/>$red2</td><td>$blue1<br/>$blue2</td><td>$redscore-$bluescore</td><td>$comments</td></tr>";
 }
