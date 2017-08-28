@@ -21,7 +21,8 @@ While ($row = mysqli_fetch_assoc($result)) {
 		'score' => $row['score'],
 		'abilities' => $row['abilities'],
 		'starred' => $row['starred'],
-		'comments' => $row['comments']
+		'comments' => $row['comments'],
+		'elo' => $row['elo']
 	);
 }
 header('Content-Type: application/json');

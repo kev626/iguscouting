@@ -87,6 +87,7 @@ td {
 </td>
 <td><b><a href='/viewTeams.php?sort=score'>Score</a></b></td>
 <td><b><a href='/viewTeams.php?sort=historical'>Historical</a></b></td>
+<td><b><a href='/viewTeams.php?sort=elo'>Elo</a></b></td>
 <td><center><b><a href='/viewTeams.php?sort=star'>S</a></b></center></td>
 <td></td>
 </tr>
@@ -113,7 +114,9 @@ if (isset($_GET['sort'])) {
 	} elseif ($_GET['sort'] == 'star') {
 		$query = $query . "ORDER BY starred DESC";
 	} elseif ($_GET['sort'] == 'historical') {
-		
+		$query = $query . "ORDER BY historical DESC";
+	} elseif ($_GET['sort'] == 'elo') {
+		$query = $query . "ORDER BY elo DESC";
 	}
 
 	$view = $_GET['sort'];
@@ -146,16 +149,28 @@ if (mysqli_num_rows($raw) > 0) {
 				$historical = round($historical, 0.0);
 			}
 			if ($row['starred'] == 0) {	
-				echo "<tr><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td><a href='/star.php?number=" . $row['number'] . "'><img src='star.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
+				echo "<tr><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td>" . $row['elo'] . "</td><td><a href='/star.php?number=" . $row['number'] . "&view={$_GET['sort']}'><img src='star.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
 			} else {
-				echo "<tr class='danger'><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td><a href='/star.php?number=" . $row['number'] . "&view='><img src='unstar.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
+				echo "<tr class='danger'><td><a href='team.php?id=" . $row['number'] . "'>" . $row['number'] . "</td><td>" . $name . "</td><td>" . $row['score'] . "</td><td>$historical</td><td>" . $row['elo'] . "</td><td><a href='/star.php?number=" . $row['number'] . "&view={$_GET['sort']}'><img src='unstar.png'/></a></td><td><a href='/delete.php?number=" . $row['number'] . "'><img src='/delete.png'/></a></td></tr>\n";
 			}
 		}
 		$recordedTeams++;
 		$totalScore+=$row['score'];
 		
 		$number=$row['number'];
-		$score=$row['score'];
+		//$score=$row['score'];
+		if (isset($_GET['sort'])) {
+			if ($_GET['sort'] == "elo") {
+				$score = $row['elo'];
+				$metric = "elo";
+			} else {
+				$score = $historical;
+				$metric = "score";
+			}
+		} else {
+			$score = $historical;
+			$metric = "score";
+		}
 		$name = str_replace("'", "", $row['name']); //remove the quote character from any team names
 		$name = str_replace("\\", "", $name); //remove the backslash character from any team names
 		$histogramText = $histogramText . "['$number: $name', $score],\n";
@@ -204,7 +219,7 @@ $averageScore = $totalScore/$recordedTeams;
 					]);
 
 					var options = {
-						title: 'Scores of teams',
+						title: '<?php echo $metric == "elo" ? "Elo spread" : "Scores"; ?> of teams',
 						legend: { position: 'none' },
 					};
 
